@@ -78,15 +78,14 @@ public:
     void reDisplay() {
         background();
         drawMenuTitle(current_scene->name());
-        drawStatus();
 
         // Draw power level indicator
         static char buffer[20];
         sprintf(buffer, "Power: %d%%", powerLevel);
-        centered_text(buffer, display.height() / 2, laserOn ? TFT_RED : TFT_WHITE, TINY);
+        centered_text(buffer, display.height() / 2, laserOn ? TFT_RED : TFT_WHITE, MEDIUM);
 
-        const char* grnLabel = laserOn ? "Laser ON" : "Turn ON";
-        const char* redLabel = laserOn ? "Turn OFF" : "Laser OFF";
+        const char* grnLabel = "Enable";
+        const char* redLabel = "Disable";
 
         drawButtonLegends(redLabel, grnLabel, "Back");
         
