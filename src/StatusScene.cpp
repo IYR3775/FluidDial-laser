@@ -137,7 +137,7 @@ public:
         DRO dro(16, 68, 210, 32);
         dro.draw(0, -1, true);
         dro.draw(1, -1, true);
-        dro.draw(2, -1, true);
+        // dro.draw(2, -1, true);
 
         int y = 170;
         if (state == Cycle || state == Hold) {
@@ -164,7 +164,7 @@ public:
             }
             centered_text(legend, y + 23);
         } else {
-            centered_text(mode_string(), y + 23, GREEN, TINY);
+            centered_text(mode_string(), y + 23, BLUE, TINY);
         }
 
         const char* encoder_button_text = "Menu";

@@ -6,10 +6,10 @@
 
 const GFXfont* font[] = {
     // lgfx::v1::IFont* font[] = {
-    &fonts::FreeSansBold9pt7b,   // TINY
-    &fonts::FreeSansBold12pt7b,  // SMALL
-    &fonts::FreeSansBold18pt7b,  // MEDIUM
-    &fonts::FreeSansBold24pt7b,  // LARGE
+    &fonts::FreeSans9pt7b,   // TINY
+    &fonts::FreeSans12pt7b,  // SMALL
+    &fonts::FreeSans18pt7b,  // MEDIUM
+    &fonts::FreeSans24pt7b,  // LARGE
     &fonts::FreeMonoBold18pt7b,  // MEDIUM_MONO
 };
 

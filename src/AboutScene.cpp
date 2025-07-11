@@ -97,15 +97,15 @@ void AboutScene::reDisplay() {
         if (wifi_mode == "No Wifi") {
             centered_text(wifi_str.c_str(), y += y_spacing, LIGHTGREY, TINY);
         } else {
-            wifi_str += " ";
+            wifi_str += ": ";
             wifi_str += wifi_ssid;
             centered_text(wifi_str.c_str(), y += y_spacing, LIGHTGREY, TINY);
             if (wifi_mode == "STA" && wifi_connected == "Not connected") {
                 centered_text(wifi_connected.c_str(), y += y_spacing, RED, TINY);
             } else {
-                wifi_str = "IP ";
+                wifi_str = "IP: ";
                 wifi_str += wifi_ip;
-                centered_text(wifi_str.c_str(), y += y_spacing, LIGHTGREY, TINY);
+                centered_text(wifi_str.c_str(), y += y_spacing, CYAN, TINY);
             }
         }
     }

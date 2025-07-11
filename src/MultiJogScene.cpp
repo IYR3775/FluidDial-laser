@@ -26,7 +26,7 @@ private:
     int          max_index() { return 6; }  // 10^3 = 1000;
     int          min_index() { return 0; }  // 10^3 = 1000;
     int          _selected_mask = 1 << 0;
-    const int    num_axes       = 3;
+    const int    num_axes       = 2;
     bool         _cancelling    = false;
     bool         _cancel_held   = false;
     bool         _continuous    = false;
