@@ -176,7 +176,7 @@ void Stripe::draw(const char* center, bool highlighted) {
 }
 
 #define PUSH_BUTTON_LINE 212
-#define DIAL_BUTTON_LINE 228
+#define DIAL_BUTTON_LINE 228 //308
 
 static int side_button_line() {
     return round_display ? PUSH_BUTTON_LINE : DIAL_BUTTON_LINE;

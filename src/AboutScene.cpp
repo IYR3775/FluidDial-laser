@@ -21,6 +21,7 @@ void AboutScene::onEntry(void* arg) {
 }
 
 void AboutScene::onDialButtonPress() {
+    setPref("brightness", _brightness);
     activate_scene(&menuScene);
 }
 void AboutScene::onGreenButtonPress() {
@@ -57,11 +58,11 @@ void AboutScene::onTouchClick() {
 void AboutScene::onEncoder(int delta) {
     if (delta > 0 && _brightness < 255) {
         display.setBrightness(++_brightness);
-        setPref("brightness", _brightness);
+        // setPref("brightness", _brightness);
     }
     if (delta < 0 && _brightness > MIN_BRIGHTNESS) {
         display.setBrightness(--_brightness);
-        setPref("brightness", _brightness);
+        // setPref("brightness", _brightness);
     }
     reDisplay();
 }

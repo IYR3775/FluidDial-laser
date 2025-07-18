@@ -13,7 +13,7 @@ private:
     const char* stateError = nullptr;
 
 public:
-    FocusScene() : Scene("Focus", 20) {}
+    FocusScene() : Scene("Focus", 60) {}
 
     void onDialButtonPress() override { pop_scene(); }
     void onRightFlick() override { activate_scene(&fileSelectScene); }

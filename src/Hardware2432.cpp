@@ -238,10 +238,10 @@ void init_resistive_cyd() {
 bool round_display = false;
 
 const int n_buttons      = 3;
-const int button_w       = 80;
-const int button_h       = 80;
+const int button_w       = 0; //80
+const int button_h       = 0; //80
 const int button_half_wh = button_w / 2;
-const int sprite_wh      = 240;
+const int sprite_wh      = 0;
 Point     button_wh(button_w, button_h);
 
 int button_colors[] = { RED, YELLOW, GREEN };
@@ -271,11 +271,11 @@ public:
 // clang-format off
 Layout layouts[] = {
 // rotation  sprite_XY        button0_XY
-    { 0,      { 0, 0 },        { 0, sprite_wh } }, // Buttons below
+    { 0,      { 0, 40 },        { 0, sprite_wh } }, // Buttons below
     { 0,      { 0, button_h }, { 0, 0 }         }, // Buttons above
     { 1,      { 0, 0 },        { sprite_wh, 0 } }, // Buttons right
     { 1,      { button_w, 0 }, { 0, 0 }         }, // Buttons left
-    { 2,      { 0, 0 },        { 0, sprite_wh } }, // Buttons below
+    { 2,      { 0, 40 },        { 0, sprite_wh } }, // Buttons below
     { 2,      { 0, button_h }, { 0, 0 }         }, // Buttons above
     { 3,      { button_w, 0 }, { 0, 0 }         }, // Buttons left
     { 3,      { 0, 0 },        { sprite_wh, 0 } }, // Buttons right
@@ -477,12 +477,12 @@ void redrawButtons() {
 void show_logo() {
     display.clear();
     display.drawPngFile(
-        LittleFS, "/fluid_dial.png", sprite_offset.x, sprite_offset.y, sprite_wh, sprite_wh, 0, 0, 0.0f, 0.0f, datum_t::middle_center);
+        LittleFS, "/fluid_dial.png", sprite_offset.x, (sprite_offset.y - 40), sprite_wh, sprite_wh, 0, 0, 0.0f, 0.0f, datum_t::middle_center);
 }
 
 void base_display() {
-    initButtons();
-    redrawButtons();
+    // initButtons();
+    // redrawButtons();
 }
 void next_layout(int delta) {
     layout_num += delta;
@@ -496,7 +496,7 @@ void next_layout(int delta) {
     delay(200);
     set_layout(layout_num);
     nvs_set_i32(hw_nvs, "layout", layout_num);
-    redrawButtons();
+    // redrawButtons();
 }
 
 void system_background() {
@@ -555,35 +555,35 @@ bool ui_locked() {
     bool locked = digitalRead(lockout_pin);
     if ((int)locked != last_locked) {
         last_locked = locked;
-        redrawButtons();
+        // redrawButtons();
     }
     return locked;
 }
 
-bool in_rect(Point test, Point xy, Point wh) {
-    return test.x >= xy.x && test.x < (xy.x + wh.x) && test.y >= xy.y && test.y < (xy.y + wh.y);
-}
-bool in_button_stripe(Point xy) {
-    return in_rect(xy, layout->buttonsXY, layout->buttonsWH);
-}
-bool screen_button_touched(bool pressed, int x, int y, int& button) {
-    Point xy(x, y);
-    if (!in_button_stripe(xy)) {
-        return false;
-    }
-    xy -= layout->buttonsXY;
-    for (int i = 0; i < n_buttons; i++) {
-        if (in_rect(xy, layout->buttonOffset(i), button_wh)) {
-            button = i;
-            if (!pressed) {
-                touch_debounce = true;
-                touch_timeout  = milliseconds() + 100;
-            }
-            return true;
-        }
-    }
-    return false;
-}
+// bool in_rect(Point test, Point xy, Point wh) {
+//     return test.x >= xy.x && test.x < (xy.x + wh.x) && test.y >= xy.y && test.y < (xy.y + wh.y);
+// }
+// bool in_button_stripe(Point xy) {
+//     return in_rect(xy, layout->buttonsXY, layout->buttonsWH);
+// }
+// bool screen_button_touched(bool pressed, int x, int y, int& button) {
+//     Point xy(x, y);
+//     if (!in_button_stripe(xy)) {
+//         return false;
+//     }
+//     xy -= layout->buttonsXY;
+//     for (int i = 0; i < n_buttons; i++) {
+//         if (in_rect(xy, layout->buttonOffset(i), button_wh)) {
+//             button = i;
+//             if (!pressed) {
+//                 touch_debounce = true;
+//                 touch_timeout  = milliseconds() + 100;
+//             }
+//             return true;
+//         }
+//     }
+//     return false;
+// }
 
 void update_events() {
     auto ms = lgfx::millis();

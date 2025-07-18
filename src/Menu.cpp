@@ -12,6 +12,7 @@ void RoundButton::show(const Point& where) {
     text(name().substr(0, 1), where, _highlighted ? MAROON : WHITE, MEDIUM);
 }
 void ImageButton::show(const Point& where) {
+    // Point translated = { where.x, where.y - 40 };
     if (_highlighted) {
         drawFilledCircle(where, _radius + 3, _disabled ? DARKGREY : _outline_color);
     } else {
@@ -38,14 +39,28 @@ void Menu::reDisplay() {
     show_items();
     refreshDisplay();
 }
+// Rotate selection based on encoder input (100 pulses/rev, 7 items)
 void Menu::rotate(int delta) {
+    if (_num_items == 0) return;
+
+    // Each item corresponds to (100 / 7) ≈ 14.29 pulses
+    static int encoder_accum = 0;
+    encoder_accum += delta;
+
+    int pulses_per_item = 100 / _num_items; // integer division: 14
+
+    int steps = encoder_accum / pulses_per_item;
+    if (steps == 0) return; // Not enough movement for a step
+
+    encoder_accum -= steps * pulses_per_item;
+
     if (_selected != -1) {
         _items[_selected]->unhighlight();
     }
 
     int previous = _selected;
     do {
-        _selected += delta;
+        _selected += steps;
         while (_selected < 0) {
             _selected += _num_items;
         }
@@ -55,9 +70,8 @@ void Menu::rotate(int delta) {
         if (!_items[_selected]->hidden()) {
             break;
         }
-        // If we land on a hidden item, move to the next item in the
-        // same direction.
-        delta = delta < 0 ? -1 : 1;
+        // If we land on a hidden item, move to the next item in the same direction.
+        steps = steps < 0 ? -1 : 1;
     } while (_selected != previous);
 
     _items[_selected]->highlight();
